@@ -6,8 +6,9 @@ from tkinter import *
 
 """ Variables and functions ----------------- """
 
-DATE_FORMAT = "%d %b %Y %H:%M:%S"
+DATE_FORMAT = "%d %b %Y %H:%M"
 RANKS = ["Bronze", "Silver", "Gold", "Platinum", "Diamond", "Master"]
+RANK_COLORS = ['#6e6e6e', '#b19c4e', '#49e9f6', '#7ccae9', '#632ba5']
 
 root = Tk()
 root.iconbitmap("icon.ico")
@@ -57,7 +58,13 @@ def get_new_rank_data():
 
 
 def show_plot():
-    plt.plot()
+    plt.plot([y[1] for y in stats['rp']], [x[0] for x in stats['rp']])
+    for i, range in enumerate(stats['ranges']):
+        plt.hlines(range, stats['rp'][0][1], stats['rp'][-1][1], colors=RANK_COLORS[i])
+    plt.xticks(rotation=45)
+    plt.subplots_adjust(bottom=0.3, top=0.95)
+
+    plt.show()
 
 
 def grid_all():
